@@ -1,0 +1,50 @@
+{ "height":100,
+ "layers":[
+        {
+         "compression":"zlib",
+         "data":"eJzt1sEJgEAMRcGgxamVqJWohW4fxg7EywaZwNwD\/\/LaENEoZRoj5rSM\/X8hYs0dtrTbo4QjdzjTZQ8A+AXtW4v2rUX71vBc7x8A3tBVteiqWnQVAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABf3Cf+M4M=",
+         "encoding":"base64",
+         "height":100,
+         "name":"MyTerrain",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":100,
+         "x":0,
+         "y":0
+        }],
+ "nextobjectid":1,
+ "orientation":"orthogonal",
+ "properties":
+    {
+
+    },
+ "renderorder":"right-down",
+ "tileheight":32,
+ "tilesets":[
+        {
+         "columns":32,
+         "firstgid":1,
+         "image":"terrain_atlas.png",
+         "imageheight":1024,
+         "imagewidth":1024,
+         "margin":0,
+         "name":"tiles",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "terrains":[
+                {
+                 "name":"New Terrain",
+                 "tile":-1
+                }],
+         "tilecount":1024,
+         "tileheight":32,
+         "tilewidth":32
+        }],
+ "tilewidth":32,
+ "version":1,
+ "width":100
+}

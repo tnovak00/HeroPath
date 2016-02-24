@@ -1,11 +1,14 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
-    <meta charset="utf-8">
-    <title>Shooting Targets is Fun!</title>
-    <script src="js/phaser.js"></script>
-    <script src="js/main.js"></script>
-
+	<head>
+         <meta charset="utf-8">
+        <title>The Golden Apples</title>
+        <script src="phaser.min.js"></script>
+        <script src="src/boot.js"></script>
+		<script src="src/preload.js"></script>
+		<script src="src/gametitle.js"></script>
+		<script src="src/thegame.js"></script>
+		<script src="src/gameover.js"></script>	
 <style>
 body
 {
@@ -17,74 +20,94 @@ body
     margin-top: 10px;
 }
 </style>
-
-</head>
-<body>
-<div id="game"></div>
+		<script>
+			(function() {
+				var game = new Phaser.Game(890, 640, Phaser.CANVAS, "game");
+				game.state.add("Boot",boot);
+				game.state.add("Preload",preload);
+				game.state.add("GameTitle",gameTitle);
+				game.state.add("TheGame",theGame);
+				game.state.add("GameOver",gameOver);
+				game.state.start("Boot");
+			})();    
+		</script>
+    </head>
+    <div id="game"></div>
 <div id="readme">
-<h2>Shooting Targets is Fun!</h2>
+<h2>The Golden Apples</h2>
 <ul>
 
 <li><strong>High Concept:</strong>
-Beat the clock to shoot all the targets on stage
+Two bunnies fight to capture each other's revered golden apples.
 </li>
 
 <li><strong>Player Experience Goals:</strong>
-A fun, easy experience that lets the player easily accomplish their task, but still gives them a small challenge to motivate.
+A challenging and competitive experience that should frustrate, excite and motivate the player to score as high as they can.
 </li>
 
 <li><strong>Genre:</strong>
-Platformer/Shooter
+Platformer/Competitive Capture
 </li>
 
 <li><strong>Game play:</strong>
-The player controls the small, orange dragon to jump across the purple platforms in an attempt to shoot all the targets before the clock runs out! The core mechanic is shooting and jumping and the combination of the two. The player can move with the arrow keys, jump with the up-key, and shoot with the spacebar. One difference that could have been included was varying velocities of your fire breath which could have been controlled by the player. 
+The player controls the white bunny with the arrow keys and must travel to the enemy's base to pick up their golden apple and bring it back to their own camp to score. While the player has the apple, if they are touched by an angry bunny, they lose the apple and must start over. All the while, the blue bunny is trying to capture the player's apple. The player can reset the blue bunny by touching him, but if the blue bunny captures the player apple, the player loses. 
 </li>
 
 <li><strong>Prototype goal:</strong>
-A combination of shooting and jumping to hit a specific target.
+Integrating competitive play and a capture objective. Also, giving enemies set paths using collision boxes and changng velocities.
 </li>
 
 <li><strong>Features:</strong>
-While it is close to other platformers in mechanic, the combined challenge of shooting and jumping to destroy targets in a small time limit is unique to my game. It can be taken further and could be made more challenging as well.
+This capture game gives the player several things to thing about and manage while trying to score as high as they can. It features an enemy player who acts on their own and attempts to beat you. The Golden Apples also has several moving enemies to make the objective more difficult.
 </li>
 
 <li><strong>Setting/Premise:</strong>
-The main character in the game, Jeff the orange dinosaur, lives in a world where the occupants are judged on how quickly they can destroy  targets on a stage. Every dinosaur in this world of destroying targets must become adept at this skill or risk being ostracized by the rest of the dinosaur community.
+A forest full of life and inhabited by bunnies (mostly angry) which also houses mystical and sparkling golden apples.
 </li>
 
 <li><strong>Story:</strong>
-Jeff the dinosaur sets out on a quest to destroy a set of targets as fast as he can to prove to himself and his peers that he is capable and skilled.  Recently, his father, who watches him from above in Shooting Targets is Fun, passed away and it motivates Jeff to do justice to his father's memory. It's almost as if he can hear his father saying from the clouds "Believe in yourself"...
+The hero bunny seeks to gain glory for their own bunny clan by capturing the rival bunny clan's golden apples. All the while, the rival bunny clan is working against the hero to both stop them and capture the hero's golden apple.
 </li>
 
 <li><strong>Target Audience:</strong>
-Children, young teens, people who like small, orange dinosaurs that resemble a beloved franchised character.
+Young adults/children.
 </li>
 
 <li><strong>Play time:</strong>
-Less than a minute to 2 minutes.
+4-5 minutes.
 </li>
 
 <li><strong>Strategies:</strong>
-Analyzing the stage before setting off to destroy the targets to assure the best path is taken to maximize time efficiency. 
+It's important to look at the map before setting off and to keep an eye on the blue bunny while running back and forth to capture the enemy's golden apple. 
 </li>
 
 <li><strong>Prototype Assets:</strong>
-Prototype assets were taken from: http://phaser.io/examples/v2/audio/sound-complete
+Prototype assets were taken from:
 http://phaser.io/examples/v2/arcade-physics/platformer-tight
-http://spritedatabase.net/file/2692
-http://phaser.io/examples/v2/category/arcade-physics
-http://phaser.io/examples/v2/time/basic-timed-event
-http://phaser.io/examples/v2/text/center-text
-http://phaser.io/examples/v2/audio/loop
-http://phaser.io/examples/v2/particles/click-burst
+http://opengameart.org/sites/default/files/Jungle_guide.png
+http://gamedevelopment.tutsplus.com/tutorials/introduction-to-tiled-map-editor-a-great-platform-agnostic-tool-for-making-level-maps--gamedev-2838
+http://talestolduntold.blogspot.co.at/2015/06/tilemaps-with-invisible-collision-layer.html
+http://www.gamefromscratch.com/post/2014/10/29/Adventures-in-Phaser-with-TypeScript-Tilemaps-Part-2-Now-with-more-stuff.aspx
+http://phaser.io/examples/v2/sprites/overlap-without-physics
+http://www.emanueleferonato.com/2014/08/28/phaser-tutorial-understanding-phaser-states/
     
-The sound effects and sprites were taken from phasers repository except for the song which was from:
-https://www.youtube.com/watch?v=VlmOhXoKmoQ 
+Sprites and images:
+Jungle tiles: http://opengameart.org/content/opp-jungle-tiles
+Apple: http://kirby.wikia.com/wiki/Apple
+Bunnies: http://spritedatabase.net/file/467
+    
+Sound effects and sprites:
+Party horn: https://www.youtube.com/watch?v=cP0VoI0nqsU
+Music: https://www.youtube.com/watch?v=auc26AgjHks
+Sparkle: https://www.youtube.com/watch?v=_rYWRTEpy-Y
+    
+
+
+
 </li>
 
 <li><strong>Prototype Closest Other Game:</strong>
-It resembles the Destroy the Targets minigame in Smash Brothers (but you can shoot in my game) and uses source code from several phaser games, but most notably http://phaser.io/examples/v2/arcade-physics/platformer-tight.
+The source game code is from Phaser's example of Starstruckk, but many features and aspects of gameplay has been added. It's similar to a game of capture the flag, but simulates the competitive aspect with a uncontrolled enemy player.
 </li>
 
 </ul>

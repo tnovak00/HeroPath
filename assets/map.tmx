@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="28" height="20" tilewidth="32" tileheight="32" nextobjectid="1">
+ <tileset firstgid="1" name="jungle" tilewidth="32" tileheight="32" tilecount="476" columns="28">
+  <image source="jungle.png" width="896" height="560"/>
+ </tileset>
+ <layer name="tiles" width="28" height="20">
+  <data encoding="base64" compression="zlib">
+   eJydlbtPVUEQh88mJhYQI1oDSmvCw0SobCXRSCI+AoSo+EAbH/gnWKpIg4qIxsg/wENFkEilNj7R+JZKjNqJWmr8Jnc3DnN2uRcn+TL37Nnzm93ZubP9LssuwEW4BDHbwvhCtpjmxNyUDfj5I/hRGINxuJ3QWeUWs5RN+fe/4I3hEe8ewxN4CrMlrHsHc1phJ+yC3bBHfffaa1cYre9QCVWKavV+Us3v5Pdd/3wMfxxOwEnogVMwvcRap73vgtOKA2otm/i+Dd8OHYomxs/AWTgHvbCO8fXwQ8UYNHl9C59gXvFZxdvg1zCp1nNNdCP7CDo6Xiqv13leA2vVeCqesHmZtRmzWjTqYDu0eL2DJo5wqIjODRiOjA+aNW7leZsZ+wJfDd+KxLsHM1mhtuTcPnokr3NF4pViohvOSerhHbyHD1n+3F5F4g0sM+Z9eBjRsSb1sBCZJ+uS/f9M6Mv/cALueM0V+JVKP9RdA2w0cXVfsuta7f7lXudd9vPA7ElbqLtg/aY/h7yXen6hhlJ1E3Ruwi2X78+p/f2vhXw+g+cu359tvHB+cynBIqbzKf2wUdHkxy+70vYXuxfE9P2gda5AmSv0iXL8UJY+P7nD9sI+2A9dLn8v2PvhMHTDETjqCvF0bxry2naexAp1aLH3QvC/effHI/dETRaP1wvnDX0wkeV7p1APdYoG7+V+mFLzrsIL8+1L+AuGE673
+  </data>
+ </layer>
+</map>
