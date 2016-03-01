@@ -10,8 +10,8 @@ gameTitle.prototype = {
      
         //Creating map and collisions with tilemap
         var back = this.game.add.image(0, 0, 'background');
-    //    var title = this.game.add.image(0, 0, 'title');
-		var playButton = this.game.add.button(650,320,"play",this.playTheGame,this);
+        var title = this.game.add.image(0, 0, 'title');
+		var playButton = this.game.add.button(450,550,"play",this.playTheGame,this);
 		playButton.anchor.setTo(0.5,0.5);
 	},
 	playTheGame: function(){

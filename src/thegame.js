@@ -14,6 +14,7 @@ var heart;
 var harder;
 var harder2;
 var harder3;
+var harder4;
 var enemyTimer;
 var scoreBoard;
 var healthBoard;
@@ -46,9 +47,8 @@ theGame.prototype = {
      burn = this.game.add.audio('burn');
      kidmusic = this.game.add.audio('kidmusic');
      dragonmusic = this.game.add.audio('dragonmusic');
-      //  party.volume = .50;
-//        music.loop = true;
-//        music.play();
+     dragonmusic.loop = true;
+     kidmusic.loop = true;
         
     players = this.game.add.group();
     players.enableBody = true;
@@ -178,6 +178,10 @@ theGame.prototype = {
         if (score >= 500 && harder3 == false) {
             this.game.time.events.repeat(Phaser.Timer.SECOND * .5, 100, this.generateObstacles, this);
             harder3 = true;
+        }
+        if (score >= 700 && harder4 == false) {
+            this.game.time.events.repeat(Phaser.Timer.SECOND * .25, 100, this.generateObstacles, this);
+            harder4 = true;
         }
         
         if (Khealth == 0) {
