@@ -207,7 +207,7 @@ theGame.prototype = {
         scoreBoard.text = score;
         
         //Moving background
-        bg.tilePosition.x -= 4;
+        bg.tilePosition.x -= 6;
 
         //Controls
         if (dragonmode == false) {
