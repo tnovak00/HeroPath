@@ -4,7 +4,10 @@ preload.prototype = {
 	preload: function(){ 
         var loadingBar = this.add.sprite(this.world.centerX,this.world.centerY,"loading");
         loadingBar.anchor.setTo(0.5,0.5);
-        this.load.setPreloadSprite(loadingBar);  
+        this.load.setPreloadSprite(loadingBar); 
+        
+        var style = { font: "25px Verdana", fill: "#FFFF00", align: "center" };
+        var text = this.game.add.text(350, 200, "Loading... ", style);
 		this.game.load.image("play","assets/button.png");
 		this.game.load.image("gameover","assets/gameover.png");
         

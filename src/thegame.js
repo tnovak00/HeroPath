@@ -47,6 +47,8 @@ theGame.prototype = {
      burn = this.game.add.audio('burn');
      kidmusic = this.game.add.audio('kidmusic');
      dragonmusic = this.game.add.audio('dragonmusic');
+     dragonmusic.volume = .5;
+     kidmusic.volume = .5;
      dragonmusic.loop = true;
      kidmusic.loop = true;
         
