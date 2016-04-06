@@ -1,14 +1,18 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-	<head>
-         <meta charset="utf-8">
-        <title>Dragon-changer</title>
-        <script src="phaser.min.js"></script>
-        <script src="src/boot.js"></script>
-		<script src="src/preload.js"></script>
-		<script src="src/gametitle.js"></script>
-		<script src="src/thegame.js"></script>
-		<script src="src/gameover.js"></script>	
+<head>
+    <meta charset="utf-8">
+    <title>A Hero's Path</title>
+	<script src="phaser.min.js"></script>
+	<script src="loading.js"></script>
+	<script src="levelselect.js"></script>
+	<script src="playlevel.js"></script>
+    <script src="gameMenu.js"></script>
+    <script src="level1-2.js"></script>
+    <script src="gameover.js"></script>
+    <script src="controls.js"></script>
+	<script src="game.js"></script>
+    
 <style>
 body
 {
@@ -19,99 +23,85 @@ body
 {
     margin-top: 10px;
 }
-</style>
-		<script>
-			(function() {
-				var game = new Phaser.Game(890, 600, Phaser.CANVAS, "game");
-				game.state.add("Boot",boot);
-				game.state.add("Preload",preload);
-				game.state.add("GameTitle",gameTitle);
-				game.state.add("TheGame",theGame);
-                game.state.add("GameOver",gameOver);
-				game.state.start("Boot");
-			})();    
-		</script>
     </head>
-    <div id="game"></div>
-<div id="readme">
-<h2>Dragon-changer</h2>
+</style>
+    <div id="game">
+    <div id="readme">
+<h2>A Hero's Path</h2>
 <ul>
 
 <li><strong>High Concept:</strong>
-A young girl, Lucy, who loves candy and likes to ride her bike has the power to turn into a fire-breathing dragon named Sapphire.
+You play as the blossoming soon-to-be hero, Egeiro, in an action/adventure game, who must journey, meet, fight and befriend gods and monsters to save his Greek village.
 </li>
 
 <li><strong>Player Experience Goals:</strong>
-A cute and fun scrolling game that allows for increase in difficulty, but is still simple and easy enough for a young child. The Dragon-Changer aims to give the feeling as if you were a child again with a big imagination for fantasy.
+The player should be able to experience control over the game's story and outcome. The player will also feel at first that they are not very strong, but will grow more powerful over time just like Egeiro in the story does.
 </li>
 
 <li><strong>Genre:</strong>
-2D side-scroller
+Action/adventure
 </li>
 
 <li><strong>Game play:</strong>
-The player controls Lucy as she bikes down the street. The player can move Lucy up, down, left and right using the arrow keys to collect candy or gems to increase their score and avoid the obstacles. The player can shoot as a dragon if they collect the nerf gun before the blue gem.
+The player controls Egeiro as he battles his way through multiple platformming levels, attack monsters and gathering items. At the end of each level, the player must fight against a boss who can either be killed or befriended if the player makes the right dialogue choices or uses the correct items.
 </li>
 
 <li><strong>Prototype goal:</strong>
-Trying to integrate childlike imagination and themes into a game that's easy and fun enough for a 4-year old.
+Using a variety of different kinds of gameplay to give the player and exciting and new experience. The prototype has one level currently which gives a good example of how the game will be played throughout platformming levels, item collection and turn-based battles with dialogue.
 </li>
 
 <li><strong>Features:</strong>
-The Dragon-Changer has two worlds that player alternates between. If the player loses their health as a dragon, they change back into a child and have a chance to try again to change back into a dragon, but if they lose all their child-health, their game is over. It allows for shooting if the player collects a specific item and has several different types of obstacles, one which has randomized pathing.
+A Hero's Path combines gameplay types from different kinds of genres of game to give a whole new type of experience. A Hero's Path also gives the player choices that change the way the game is played throughout levels and allows for different endings to the story.
 </li>
 
 <li><strong>Setting/Premise:</strong>
-The city in which Lucy lives and rides her bike and the space fantasy world she is imagining as she turns into a big blue dragon.
+The game takes place in ancient Greece in a time where gods and mortals intermingled and heros rose from tiny villages dotting the Mediterranean.
 </li>
 
 <li><strong>Story:</strong>
-Lucy rides her bike down the street, gathering candy. When she finds the magical blue gems, she transforms into a magic dragon called Sapphire who can shoot fireballs in space and collect the mystical red diamonds.
+Egeiro, a boy who grew up in a small village in Greece, is visted in a dream by a goddess who tells him that his world is in grave danger. In order to save his village and the people he loves he must journey across the land to Mt. Olympus, home of the gods, and become a hero.
 </li>
 
 <li><strong>Target Audience:</strong>
-Young children.
+Young adults and those interested in classic mythology.
 </li>
 
 <li><strong>Play time:</strong>
-4-5 minutes. Has replay value.
+20-30 minutes (with all levels). With one level, about 8-10 minutes.
 </li>
 
 <li><strong>Strategies:</strong>
-You'll want to collect the nerf gun before transforming into a dragon to have the best chance of staying alive as a dragon because you can destroy obstaces. The dragon gains more points than Lucy as a child because the red diamonds are worth more.
+It's important to look for chests in the platformming levels and secret places where important items may hide before entering the lair of the boss. When fighting the boss, consider the items you have and all your options before deciding to go all out and attack.
 </li>
 
 <li><strong>Prototype Assets:</strong>
 Prototype assets were taken from:
-https://gamedevacademy.org/how-to-make-an-infinitely-scrolling-game-with-phaser/
-http://phaser.io/examples/v2/time/basic-repeat-event
-http://phaser.io/examples/v2/tweens/interpolation
-http://phaser.io/tutorials/coding-tips-008
+http://www.emanueleferonato.com/2014/12/05/html5-phaser-tutorial-how-to-create-a-level-selection-screen-with-locked-levels-and-stars-finished-prototype/
     
 Sprites and images:
-http://www.spriters-resource.com/genesis_32x_scd/alisiadragoon/sheet/25621/
-http://www.spriters-resource.com/arcade/ghoulsnghosts/sheet/65818/
-http://www.spriters-resource.com/resources/sheets/21/22517.png
-http://www.spriters-resource.com/snes/joemac2/sheet/26519/
-http://gallerily.com/starry+sky+painting
-http://forum.unity3d.com/threads/wip-the-pixel-dead-2d-zombie-shooter-kit.308512/
-http://tail800.deviantart.com/gallery/
-http://makepixelart.com/artists/shagedelic/scary-monsters-and-nice-sprites
-http://www.spriters-resource.com/game_boy_advance/drilldozer/sheet/13221/
-http://orig14.deviantart.net/4f01/f/2012/071/d/6/pixel_nerf_gun_by_goodlyay-d4sique.png
+http://hasgraphics.com/spiralgraphics-mystery-forest-tileset/
+http://hasgraphics.com/gamepoetry-rpg-sprites-and-tilesheets/
+http://atextures.com/sky-clouds-background-twenty-six/
+http://c-toy.blogspot.com/2014/08/rollo-sprite-de-personagem-de-um-heroi.html
     
 Sound effects:
-https://www.freesound.org/people/pyro13djt/sounds/331938/   
-
-
-
+https://www.youtube.com/watch?v=QY1Vetd7OCs
+https://www.youtube.com/watch?v=uBH0orRDkjw
+http://soundbible.com/1823-Winning-Triumphal-Fanfare.html
+https://www.youtube.com/watch?v=9NFmgQqLmSo
+http://soundbible.com/1601-Mario-Jumping.html
+http://soundbible.com/706-Swoosh-3.html
+http://soundbible.com/1529-Dog-Bite.html
+http://soundbible.com/565-Monster-Snarling.html
+http://soundbible.com/462-Male-Grunt.html
+http://soundbible.com/75-Dog-Woof.html
+http://soundbible.com/71-Dog-Growling-And-Barking.html
 </li>
 
 <li><strong>Prototype Closest Other Game:</strong>
-The Dragon-Changer is similar to many other Iphone/Android game runners (Like Temple Runner). I got my inspiration knowing my little cousins love playing those games on their Ipads.
+The game takes elements of gameplay from games like Undertale, Super Mario, God of War and Final Fantasy.
 </li>
 
 </ul>
 </div>
-</body>
 </html>
