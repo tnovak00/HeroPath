@@ -19,6 +19,7 @@ var dialogueString;
 var dialogue = "";
 var text;
 var turn = true;
+var charging = false;
 
 // SOUNDS
 var battle;
@@ -253,20 +254,39 @@ level12 = {
     },
     
     bossAttack: function() {
+        var randomValue = game.rnd.integerInRange(0, 100);
+        if (randomValue > 0 && randomValue < 33 && charging == false) {
+            charging = true;
+            dialogueBox.kill();
+            dialogueBox = this.game.add.button(510, 220, "dialogue");
+            dialogueString = this.game.add.text(525, 230, "", {font: "17px Arial",  fill: "#000"});
+            dialogueString.bringToFront;
+            dialogue = "*Cerberus is glowing red and \n seems to be charging up*"
+            return;
+        }
         if (health > 0) {
             game.dogbite.play();
             game.ouch.play();
-            if (defending = true) {
+            if (defending == true && charging == false) {
                 health -= 5
+            } else if (defending == true && charging == true) {
+                health -= 12;
+            } else if (defending == false && charging == true) {
+                health -= 20;
             } else {
-                health -= 10;
+                health -= 10
             }
             turn = true;
             dialogueBox.kill();
             dialogueBox = this.game.add.button(510, 220, "dialogue");
             dialogueString = this.game.add.text(525, 230, "", {font: "17px Arial",  fill: "#000"});
             dialogueString.bringToFront;
-            dialogue = "*Cerberus lashes out at you\n with his teeth bared*"
+            if (charging == true) {
+              charging = false;
+              dialogue = "*Cerberus blasts a fireball\n in your direction*"  
+            } else {
+              dialogue = "*Cerberus lashes out at you\n with his teeth bared*"
+            }
         if (health <= 0) {
             dialogueBox.kill();
             dialogueBox = this.game.add.button(510, 220, "dialogue", function() {
@@ -275,5 +295,6 @@ level12 = {
             dialogue = "YOU DIED. Click here to\n start over.";
         }
       }
+       defending = false;
     },
 }     
