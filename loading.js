@@ -20,6 +20,7 @@ loading = {
         game.load.image("attackButton", "assets/attackButton.jpg");
         game.load.image("talkButton", "assets/talkButton.jpg");
         game.load.image("specialButton", "assets/specialButton.jpg");
+        game.load.image("defendButton", "assets/defendButton.png");
         game.load.image("bone", "assets/bone.png");
         game.load.image("cerberus", "assets/cerberus.png");
         game.load.image("itemMenu", "assets/itemPopup.jpg");

@@ -2,6 +2,7 @@ var test;
 var bone = false;
 var health = 100;
 var overworld;
+var potions = 0;
 
 levelSelect = {
   	create: function(){

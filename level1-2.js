@@ -3,7 +3,6 @@ var talk;
 var special;
 var items;
 var enemyHealth = 100;
-var playerHealth = 100;
 var h1;
 var healthBoard;
 var boss;
@@ -13,6 +12,8 @@ var itemSprites;
 var itemsOpen = false;
 var specialOpen = false;
 var specialMenu;
+var defend;
+var defending = false;
 var dialogueBox;
 var dialogueString;
 var dialogue = "";
@@ -74,7 +75,7 @@ level12 = {
 	},
     
     update: function() {
-        healthBoard.text = playerHealth;
+        healthBoard.text = health;
         dialogueString.text  = dialogue;
         if (turn == false) {
             this.bossAttack;
@@ -102,6 +103,7 @@ level12 = {
             game.menu.play();
             specialMenu = this.game.add.image(0, 0, 'specialMenu');
             back = this.game.add.button(400, 0, "back", this.killSpecialMenu, this)
+            defend = this.game.add.button(20, 350, "defendButton", this.defend, this);
         }
     },
     
@@ -142,6 +144,16 @@ level12 = {
         specialMenu.kill();
         back.kill();
         game.menu.play();
+        defend.kill();
+    },
+    
+    defend: function() {
+        defending = true;
+        dialogueBox.kill();
+        dialogueBox = this.game.add.button(510, 220, "dialogue");
+        dialogueString = this.game.add.text(525, 230, "", {font: "17px Arial", fill: "#000"});
+        dialogue = "You hold your shield up \nand prepare for an attack";
+        game.time.events.add(Phaser.Timer.SECOND * 2.5, this.bossAttack, this);
     },
     
     useBone: function() {
@@ -170,7 +182,7 @@ level12 = {
             dialogueString = this.game.add.text(525, 230, "", {font: "17px Arial", fill: "#000"});
             dialogue = "He probably needs to be\n weakened more...";
         } else if (option == "0") {
-              dialogueBox.kill();
+            dialogueBox.kill();
             dialogueBox = this.game.add.button(510, 220, "dialogue");
             dialogueString = this.game.add.text(525, 230, "", {font: "17px Arial", fill: "#000"});
             game.growl.play();
@@ -241,17 +253,21 @@ level12 = {
     },
     
     bossAttack: function() {
-        if (playerHealth > 0) {
-        game.dogbite.play();
-        game.ouch.play();
-        playerHealth -= 10;
-        turn = true;
-        dialogueBox.kill();
-        dialogueBox = this.game.add.button(510, 220, "dialogue");
-        dialogueString = this.game.add.text(525, 230, "", {font: "17px Arial", fill: "#000"});
-        dialogueString.bringToFront;
-        dialogue = "*Cerberus lashes out at you\n with his teeth bared*"
-        if (playerHealth <= 0) {
+        if (health > 0) {
+            game.dogbite.play();
+            game.ouch.play();
+            if (defending = true) {
+                health -= 5
+            } else {
+                health -= 10;
+            }
+            turn = true;
+            dialogueBox.kill();
+            dialogueBox = this.game.add.button(510, 220, "dialogue");
+            dialogueString = this.game.add.text(525, 230, "", {font: "17px Arial",  fill: "#000"});
+            dialogueString.bringToFront;
+            dialogue = "*Cerberus lashes out at you\n with his teeth bared*"
+        if (health <= 0) {
             dialogueBox.kill();
             dialogueBox = this.game.add.button(510, 220, "dialogue", function() {
             this.game.state.start("GameOver");}, this);
