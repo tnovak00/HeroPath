@@ -1,3 +1,9 @@
+var potions = 0;
+var health = 100;
+var bone = false;
+var level1 = true;
+var level2 = false;
+
 gameMenu = {
     create: function(){
         bg = game.add.image(0, 0, 'menuBG');

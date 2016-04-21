@@ -11,9 +11,20 @@ loading = {
         game.load.image("menuBG", "assets/cloudy_bg.jpg");
         game.load.image("controlsBG", "assets/cloudy_controls.jpg");
         game.load.image('heart', 'assets/heart.png');
+        
+        //MAPS
         game.load.tilemap('level1', 'assets/Maps/level1.csv', null, Phaser.Tilemap.TILED_CSV);
         game.load.image('castle', 'assets/Maps/castle.png');
+        game.load.tilemap('level2', 'assets/Maps/level2.json', null, Phaser.Tilemap.TILED_JSON);
+        game.load.image('ruinsSet', 'assets/Maps/ruinsSet.png');
+        
+        game.load.image('cloud1', 'assets/Maps/cloud1.png');
+        game.load.image('cloud2', 'assets/Maps/cloud2.png');
+        game.load.image('cloud3', 'assets/Maps/cloud3.png');
+        game.load.image('cloud4', 'assets/Maps/cloud4.png');
+        game.load.image('door', 'assets/door.png');
         game.load.image("play", "assets/play.jpg");
+        game.load.image("clouds", "assets/clouds.jpg")
         game.load.image("backMenu", "assets/backMenu.jpg");
         game.load.image("controls", "assets/controls.jpg");
         game.load.image("itemButton", "assets/itemButton.jpg");
@@ -33,6 +44,9 @@ loading = {
         game.load.spritesheet("player", "assets/rolloED.png", 171, 243);
         game.load.spritesheet("skeleton", "assets/skeleton.png", 34, 46);
         game.load.spritesheet("bat", "assets/bat.png", 32, 32);
+        game.load.spritesheet("bird", "assets/bird.png", 40, 48);
+        game.load.spritesheet("goblin", "assets/goblin.png", 56, 64);
+        game.load.spritesheet("goblinA", "assets/armoredgoblin.png", 56, 67);
         game.load.spritesheet("chest", "assets/chest.png", 46, 36);
         
         // MUSIC
