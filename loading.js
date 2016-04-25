@@ -17,6 +17,8 @@ loading = {
         game.load.image('castle', 'assets/Maps/castle.png');
         game.load.tilemap('level2', 'assets/Maps/level2.json', null, Phaser.Tilemap.TILED_JSON);
         game.load.image('ruinsSet', 'assets/Maps/ruinsSet.png');
+        game.load.tilemap('level3', 'assets/Maps/level3.json', null, Phaser.Tilemap.TILED_JSON);
+        game.load.image('library_tileset', 'assets/Maps/library_tileset.png');
         
         game.load.image('cloud1', 'assets/Maps/cloud1.png');
         game.load.image('cloud2', 'assets/Maps/cloud2.png');
