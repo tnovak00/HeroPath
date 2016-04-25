@@ -1,3 +1,19 @@
+
+var health = 100;
+
+//item check
+var bone = false;
+var potions = 0;
+var p1 = false;
+var p2 = false;
+var message = false;
+
+var hermes = false;
+var cerberus = false;
+
+var level1 = false;
+var level2 = false;
+
 gameMenu = {
     create: function(){
         bg = game.add.image(0, 0, 'menuBG');
