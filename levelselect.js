@@ -13,6 +13,11 @@ levelSelect = {
         player = game.add.sprite(70, 400, "player");
         player.scale.setTo(.5, .5);
         
+        if (level1 == true) {
+            player.position.x = 520;
+            player.position.y = 250;
+        }
+        
         player.animations.add('attack', [0, 1, 2, 3, 4, 5, 6, 7], 10, true);
         player.animations.add('walk', [8, 9, 10, 11, 12, 13, 14, 15, 16], 11, true);
            

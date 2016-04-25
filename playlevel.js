@@ -194,8 +194,10 @@ playLevel = {
         healthBoard.text = health;
         
         if (health <= 0) {
-            this.game.state.start("LevelSelect");
             health = 100;
+            chest1Opened = false;
+            game.castle.stop();
+            this.game.state.start(game.state.current);
         }
         
         if (attack.isDown && player.scale.x == .15) {

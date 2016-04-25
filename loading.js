@@ -23,6 +23,14 @@ loading = {
         game.load.image('cloud3', 'assets/Maps/cloud3.png');
         game.load.image('cloud4', 'assets/Maps/cloud4.png');
         game.load.image('door', 'assets/door.png');
+        game.load.image('potion', 'assets/Items/potion.png')
+        game.load.image('spear', 'assets/spear.png')
+        game.load.spritesheet('potionGet', 'assets/Items/potionGet.png', 421, 355)
+        game.load.image('p1', 'assets/Items/p1.png')
+        game.load.image('p2', 'assets/Items/p2.png')
+        game.load.image('message', 'assets/Items/paper.png')
+        game.load.spritesheet('p1Get', 'assets/Items/p1Get.png', 421, 355)
+        game.load.spritesheet('p2Get', 'assets/Items/p2Get.png', 421, 355)
         game.load.image("play", "assets/play.jpg");
         game.load.image("clouds", "assets/clouds.jpg")
         game.load.image("backMenu", "assets/backMenu.jpg");
@@ -34,6 +42,8 @@ loading = {
         game.load.image("defendButton", "assets/defendButton.png");
         game.load.image("bone", "assets/bone.png");
         game.load.image("cerberus", "assets/cerberus.png");
+        game.load.image("hermes", "assets/hermes.png");
+        game.load.image("sky", "assets/sky.png");
         game.load.image("itemMenu", "assets/itemPopup.jpg");
         game.load.image("specialMenu", "assets/specialPopup.jpg");
         game.load.image("back", "assets/back.png");
@@ -52,6 +62,10 @@ loading = {
         // MUSIC
         
         game.load.audio("battle", "assets/Sound/battle.mp3");
+        game.load.audio("hermesOw", "assets/Sound/hermesOw.wav");
+        game.load.audio("cerberusAttack", "assets/Sound/cerberusAttack.mp3");
+        game.load.audio("clouds", "assets/Sound/clouds.mp3");
+        game.load.audio("hermesBattle", "assets/Sound/boss.mp3");
         game.load.audio("castle", "assets/Sound/castle.mp3");
         game.load.audio("dogbite", "assets/Sound/dogbite.mp3");
         game.load.audio("growl", "assets/Sound/growl.mp3");
