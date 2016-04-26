@@ -20,6 +20,7 @@ var dialogue = "";
 var text;
 var turn = true;
 var charging = false;
+var potionNumber;
 
 // SOUNDS
 var battle;
@@ -34,7 +35,7 @@ var menu;
 
 level12 = {
 	create: function(){
-        game.castle.stop();
+        //game.castle.stop();
         
         //Sounds and music
         
@@ -90,11 +91,38 @@ level12 = {
             itemMenu = game.add.image(0, 0, 'itemMenu');
             back = this.game.add.button(400, 0, "back", this.killItemMenu, this)
             itemSprites = game.add.group();
+            if (potions > 0) {
+                potionSprite = game.add.button(740, 10, 'potion', this.usePotion, this);
+                potionSprite.scale.setTo(.5)
+                potionStyle = { font: "10px Verdana", fill: "#FFFFFF", align: "center" };
+                potionNumber = game.add.text(740, 10, "", potionStyle);
+                potionNumber.text = potions;
+                itemSprites.add(potionNumber);
+                itemSprites.add(potionSprite);
+            }
             if (bone == true) {
                 boneSprite = game.add.button(100, 5, 'bone', this.useBone, this);
                 boneSprite.scale.setTo(.5, .5);
                 itemSprites.add(boneSprite);
             }
+        }
+    },
+    
+     usePotion: function() {
+        if (health >= 80) {
+            health = 100;
+            potions--;
+            potionNumber.text = potions;
+            this.killItemMenu();
+            this.bossAttack();
+        } else if (health == 100) {
+            return;
+        } else {
+            health += 20;
+            potions--;
+            this.killItemMenu();
+            this.bossAttack();
+            potionNumber.text = potions;
         }
     },
     
@@ -135,14 +163,14 @@ level12 = {
         itemMenu.kill();
         game.menu.play();
         back.kill();
-        itemSprites.forEach(function(item) {
-            item.kill();
-        }, this);
+        itemSprites.callAll('kill');
+        potionNumber.text = "";
     },
     
     killSpecialMenu: function() {
         specialOpen = false;
         specialMenu.kill();
+        
         back.kill();
         game.menu.play();
         defend.kill();
