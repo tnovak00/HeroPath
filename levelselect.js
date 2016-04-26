@@ -4,6 +4,7 @@ var overworld;
 levelSelect = {
   	create: function(){
         game.add.image(0, 0, "map");
+        game.world.setBounds(0, 0, 4900, 1024);
         
         var icon1 = this.game.add.button(250, 310, "icon", this.playLevel1, this);
         icon1.anchor.setTo(0.5,0.5);
@@ -17,10 +18,16 @@ levelSelect = {
         //Creating player character
         player = game.add.sprite(70, 400, "player");
         player.scale.setTo(.5, .5);
+        game.camera.follow(player);
         
-        if (level1 == true) {
+        if (level1beat == true) {
+            player.position.x = 210;
+            player.position.y = 240;
+        } 
+        
+        if (level2beat == true) {
             player.position.x = 520;
-            player.position.y = 250;
+            player.position.y = 200;
         }
         
         player.animations.add('attack', [0, 1, 2, 3, 4, 5, 6, 7], 10, true);
@@ -35,14 +42,14 @@ levelSelect = {
     
     playLevel2: function() {
         //going to Level2: Ruins in the Sky
-        if (level1 == true) {
+        if (level1beat == true) {
             this.game.state.start("Level2");
         }
     },
     
     playLevel3: function() {
         //going to Level 3: Library
-        if (true) {
+        if (level2beat == true) {
             this.game.state.start("Level3");
         }
     }

@@ -227,7 +227,7 @@ level12 = {
             game.win.play();
             dialogueBox = this.game.add.button(510, 220, "dialogue", function() {
             this.game.state.start("LevelSelect");}, this);
-            level1 = true;
+            level1beat = true;
             dialogueString = this.game.add.text(525, 230, "", {font: "17px Arial", fill: "#FFFF00"});
             game.battle.stop();
             dialogue = "YOU WIN! Cerberus joins your\n team. Click here.";
@@ -265,7 +265,7 @@ level12 = {
             dialogueBox.kill();
             dialogueBox = this.game.add.button(510, 220, "dialogue", function() {
             this.game.state.start("LevelSelect");}, this);
-            level1 = true;
+            level1beat = true;
             dialogueString = this.game.add.text(525, 230, "", {font: "17px Arial", fill: "#FFFF00"});
             game.win.play();
             game.battle.stop();

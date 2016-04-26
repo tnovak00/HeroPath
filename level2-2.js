@@ -199,6 +199,7 @@ level22 = {
             dialogueString = this.game.add.text(525, 230, "", {font: "17px Arial", fill: "#FFFF00"});
             game.win.play();
             game.bossMusic.stop();
+            level2beat = true;
             dialogue = "YOU KILLED HERMES. Click\n here.";
         } else {
         game.time.events.add(Phaser.Timer.SECOND * 1, this.bossAttack, this);
@@ -258,11 +259,12 @@ level22 = {
             game.win.play();
             dialogueBox = this.game.add.button(510, 220, "dialogue", function() {
             this.game.state.start("LevelSelect");}, this);
-            level2 = true;
+            level2beat = true;
             hermes = true;
             dialogueString = this.game.add.text(525, 230, "", {font: "17px Arial", fill: "#FFFF00"});
             game.bossMusic.stop();
             dialogue = "YOU WIN! Hermes gives you his\n winged sandals. Click here.";
+            level2 = true;
         } else if (option == "3") {
             dialogueBox.kill();
             dialogueBox = this.game.add.button(510, 220, "dialogue");
@@ -295,6 +297,7 @@ level22 = {
             dialogueString = this.game.add.text(525, 230, "", {font: "17px Arial", fill: "#FFFF00"});
             game.win.play();
             game.bossMusic.stop();
+            level2beat = true;
             dialogue = "YOU KILLED HERMES. Click\n here.";
         } else {
         game.time.events.add(Phaser.Timer.SECOND * 1, this.bossAttack, this);
