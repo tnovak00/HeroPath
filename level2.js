@@ -88,7 +88,7 @@ level2 = {
         game.physics.enable(player, Phaser.Physics.ARCADE);
         player.scale.setTo(.15, .15);
         player.body.collideWorldBounds = false;
-        player.body.gravity.y = 700;
+        player.body.gravity.y = 1000;
         player.body.maxVelocity.y = 500;
         player.anchor.setTo(.5, .5);
         game.camera.follow(player);

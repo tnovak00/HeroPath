@@ -2,6 +2,7 @@ var map;
 var cursors;
 var player;
 var jumptimer = 0;
+var attacktimer = 0;
 var attack;
 var attacking = false;
 var spikes;
@@ -18,6 +19,7 @@ var chest2Opened = false;
 var chest3;
 var chest3Opened = false;
 var wow;
+var facing;
 
 // SOUNDS
 var castle;
@@ -90,7 +92,7 @@ playLevel = {
         game.physics.enable(player, Phaser.Physics.ARCADE);
         player.scale.setTo(.15, .15);
         player.body.collideWorldBounds = true;
-        player.body.gravity.y = 700;
+        player.body.gravity.y = 1000;
         player.body.maxVelocity.y = 500;
         player.anchor.setTo(.5, .5);
         game.camera.follow(player);
@@ -259,6 +261,14 @@ playLevel = {
             player.body.velocity.y = -400
             game.jump.play();
             jumptimer = game.time.now + 1000;
+        }
+    },
+    
+    attack: function() {
+        if (game.time.now > attacktimer) {
+            player.animations.play('attack');
+            attacking = true;
+            attacktimer = game.time.now + 300;
         }
     },
     
