@@ -13,6 +13,9 @@ var healthBoard;
 var bats;
 var chest1;
 var chest1Opened = false;
+var attackCD = 1;
+var attackAnimationCD = 0.5;
+var attackOnCD = false;
 var wow;
 
 // SOUNDS
@@ -130,7 +133,8 @@ level3 = {
         game.physics.arcade.overlap(goblins, skelCol, this.skeletonPath, null, this);
         game.physics.arcade.overlap(player, goblins, this.skelHit, null, this);
         game.physics.arcade.overlap(player, bats, this.batHit, null, this);
-        game.physics.arcade.overlap(player, endDoor, this.bossFight, null, this);
+        game.physics.arcade.overlap(player, endDoor, this.bossFight, null, this)
+        
         
         healthBoard.text = health;
         
@@ -150,41 +154,51 @@ level3 = {
         
         player.body.velocity.x = 0
         //Player movement
-        if (attack.isDown && cursors.right.isDown) {
-            player.animations.play('attack');
-            player.scale.x = .15;
-            player.body.velocity.x = 200;
-            attacking = true;
-        } else if (attack.isDown && cursors.left.isDown){
-            player.body.velocity.x = -200;
-            player.scale.x = -.15;
-            player.animations.play('attack');
-            attacking = true;
-        } else if (cursors.right.isDown){
-            player.body.velocity.x = 200;
-            player.scale.x = .15;
-            player.animations.play('walk');
-            player.body.setSize(100, 280, -8, 0);
-            attacking = false;
-        } else if (cursors.left.isDown){
-            player.body.velocity.x = -200;
-            player.scale.x = -.15;
-            player.animations.play('walk');
-            player.body.setSize(100, 280, 7, 0);
-            attacking = false;
-        } else if (attack.isDown) {
+        
+        if(!attackOnCD && attack.isDown){
+            game.time.events.add(Phaser.Timer.SECOND * attackCD, this.attackCooldown, this);
+            game.time.events.add(Phaser.Timer.SECOND * attackAnimationCD, this.attackAnimationCooldown, this);
+            attackOnCD = true;
             attacking = true;
             player.animations.play('attack');
-        } else {
-            player.frame = 0;
-            player.body.setSize(100, 280, -8, 0);
-            attacking = false;
+            if (cursors.right.isDown) {
+                player.scale.x = .15;
+                player.body.velocity.x = 200;
+            } else if (cursors.left.isDown){
+                player.body.velocity.x = -200;
+                player.scale.x = -.15;
+            }
+        }
+        else {
+            if (cursors.right.isDown){
+                player.body.velocity.x = 200;
+                player.scale.x = .15;
+                if(!attacking){
+                    player.animations.play('walk');
+                    player.body.setSize(100, 280, -8, 0);
+                    attacking = false;
+                }
+            } else if (cursors.left.isDown) {
+                player.body.velocity.x = -200;
+                player.scale.x = -.15;
+                if(!attacking){
+                    player.animations.play('walk');
+                    player.body.setSize(100, 280, 7, 0);
+                    attacking = false;
+                }
+            } else {
+                
+                player.body.setSize(100, 280, -8, 0);
+                if(!attacking) {
+                    player.frame = 0;
+                    attacking = false;
+                }
+            }
         }
         
-        if (cursors.up.isDown && game.time.now > jumptimer) {
+        if (cursors.up.isDown && player.body.onFloor()) {
             player.body.velocity.y = -400
             game.jump.play();
-            jumptimer = game.time.now + 1000;
         }
     },
     
@@ -220,7 +234,11 @@ level3 = {
     
     skeletonPath: function(skeleton, c) {
         skeleton.body.velocity.x *= -1;
-        skeleton.scale.x *= -1
+        skeleton.scale.x *= -1  
+    },
+    
+    goblinJump: function(goblin){
+        goblin.body.velocity.y = 400;
     },
     
     generateBat: function() {
@@ -265,5 +283,18 @@ level3 = {
     
     killWow: function() {
         wow.kill();
+    },
+        
+    attackCooldown: function() {
+        attackOnCD = false;
+    },
+    
+    attackAnimationCooldown: function() {
+        attacking = false;
+    },
+    
+    render: function(){
+        //game.debug.text('Grounded: ' + grounded, 32, 32);
     }
+    
 }  
