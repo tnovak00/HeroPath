@@ -225,36 +225,45 @@ playLevel = {
         
         player.body.velocity.x = 0
         //Player movement
-    
-        if (attack.isDown && cursors.right.isDown) {
-            player.animations.play('attack');
-            player.scale.x = .15;
-            player.body.velocity.x = 200;
-            attacking = true;
-        } else if (attack.isDown && cursors.left.isDown){
-            player.body.velocity.x = -200;
-            player.scale.x = -.15;
-            player.animations.play('attack');
-            attacking = true;
-        } else if (cursors.right.isDown){
-            player.body.velocity.x = 200;
-            player.scale.x = .15;
-            player.animations.play('walk');
-            player.body.setSize(100, 280, -8, 0);
-            attacking = false;
-        } else if (cursors.left.isDown){
-            player.body.velocity.x = -200;
-            player.scale.x = -.15;
-            player.animations.play('walk');
-            player.body.setSize(100, 280, 7, 0);
-            attacking = false;
-        } else if (attack.isDown) {
+      if(!attackOnCD && attack.isDown){
+            game.time.events.add(Phaser.Timer.SECOND * attackCD, this.attackCooldown, this);
+            game.time.events.add(Phaser.Timer.SECOND * attackAnimationCD, this.attackAnimationCooldown, this);
+            attackOnCD = true;
             attacking = true;
             player.animations.play('attack');
-        } else {
-            player.frame = 0;
-            player.body.setSize(100, 280, -8, 0);
-            attacking = false;
+            if (cursors.right.isDown) {
+                player.scale.x = .15;
+                player.body.velocity.x = 200;
+            } else if (cursors.left.isDown){
+                player.body.velocity.x = -200;
+                player.scale.x = -.15;
+            }
+        }
+        else {
+            if (cursors.right.isDown){
+                player.body.velocity.x = 200;
+                player.scale.x = .15;
+                if(!attacking){
+                    player.animations.play('walk');
+                    player.body.setSize(100, 280, -8, 0);
+                    attacking = false;
+                }
+            } else if (cursors.left.isDown) {
+                player.body.velocity.x = -200;
+                player.scale.x = -.15;
+                if(!attacking){
+                    player.animations.play('walk');
+                    player.body.setSize(100, 280, 7, 0);
+                    attacking = false;
+                }
+            } else {
+                
+                player.body.setSize(100, 280, -8, 0);
+                if(!attacking) {
+                    player.frame = 0;
+                    attacking = false;
+                }
+            }
         }
         
         if (cursors.up.isDown && game.time.now > jumptimer) {
@@ -383,5 +392,13 @@ playLevel = {
     
     killWow: function() {
         wow.kill();
+    },
+    
+    attackCooldown: function() {
+        attackOnCD = false;
+    },
+    
+    attackAnimationCooldown: function() {
+        attacking = false;
     }
 }  

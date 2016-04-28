@@ -12,7 +12,7 @@ var hermes = false;
 var cerberus = false;
 
 var level1beat = false;
-var level2beat = true;
+var level2beat = false;
 
 gameMenu = {
     create: function(){
