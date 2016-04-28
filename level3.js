@@ -8,6 +8,9 @@ var spikes;
 var endDoor;
 var goblins;
 var skelCol;
+var goblinJumpForce = 600;
+var goblinJumpCDMin = 0.5;
+var goblingJUMPCDMax = 2;
 var h1;
 var healthBoard;
 var bats;
@@ -82,6 +85,14 @@ level3 = {
         player.animations.add('walk', [8, 9, 10, 11, 12, 13, 14, 15, 16], 11, true);
         
         //Enemies - Goblins
+        enemyGoblins = [];
+        goblinCoords = [[500, 700],[550, 700],[1500, 700],[2100,700],[2400,800]];
+        
+        for(i = 0; i < goblinCoords.length; i++){
+            enemyGoblins.push(new Goblin(i, game, player, goblinCoords[i][0], goblinCoords[i][1], this));
+            game.time.events.add(Phaser.Timer.SECOND * game.rnd.realInRange(goblinJumpCDMin,goblingJUMPCDMax), this.goblinJump, this, enemyGoblins[i].goblin);
+        }
+        
         goblins = game.add.group();
         goblins.enableBody = true;
         goblins.physicsBodyType = Phaser.Physics.ARCADE;
@@ -112,6 +123,16 @@ level3 = {
         skel5.animations.play("walk");
        
         
+        game.time.events.add(Phaser.Timer.SECOND * game.rnd.realInRange(goblinJumpCDMin,goblingJUMPCDMax), this.goblinJump, this, skel1);
+        game.time.events.add(Phaser.Timer.SECOND * game.rnd.realInRange(goblinJumpCDMin,goblingJUMPCDMax), this.goblinJump, this, skel2);
+        game.time.events.add(Phaser.Timer.SECOND * game.rnd.realInRange(goblinJumpCDMin,goblingJUMPCDMax), this.goblinJump, this, skel3);
+        game.time.events.add(Phaser.Timer.SECOND * game.rnd.realInRange(goblinJumpCDMin,goblingJUMPCDMax), this.goblinJump, this, skel4);
+        game.time.events.add(Phaser.Timer.SECOND * game.rnd.realInRange(goblinJumpCDMin,goblingJUMPCDMax), this.goblinJump, this, skel5);
+        
+        endDoor = game.add.sprite(2222, 738, 'icon');
+        endDoor.scale.setTo(.5, 1);
+        game.physics.enable(endDoor, Phaser.Physics.ARCADE);
+        
         //Enemies - Bats
         bats = game.add.group();
         bats.enableBody = true;
@@ -122,6 +143,8 @@ level3 = {
         
         
         game.time.events.repeat(Phaser.Timer.SECOND * 1, 100, this.generateBat,this);
+        
+        
 	},
     
     update: function(){
@@ -135,6 +158,9 @@ level3 = {
         game.physics.arcade.overlap(player, bats, this.batHit, null, this);
         game.physics.arcade.overlap(player, endDoor, this.bossFight, null, this)
         
+        for(i = 0; i < enemyGoblins.length; i++){
+            enemyGoblins[i].update();
+        }
         
         healthBoard.text = health;
         
@@ -209,7 +235,7 @@ level3 = {
     },
     
     bossFight: function() {
-       this.game.state.start("Level1-2");
+       this.game.state.start("Level3-2");
     },
     
     skelHit: function(player, skeleton) {
@@ -238,7 +264,10 @@ level3 = {
     },
     
     goblinJump: function(goblin){
-        goblin.body.velocity.y = 400;
+        if(goblin.body.onFloor()) {
+            goblin.body.velocity.y = -goblinJumpForce;
+        }
+        game.time.events.add(Phaser.Timer.SECOND * game.rnd.realInRange(goblinJumpCDMin,goblingJUMPCDMax), this.goblinJump, this, goblin);
     },
     
     generateBat: function() {
@@ -298,3 +327,51 @@ level3 = {
     }
     
 }  
+
+Goblin = function (index, game, player, x, y, level) {
+
+    var x = x;
+    var y = y;
+
+    this.game = game;
+    this.health = 1;
+    this.player = player;
+    this.alive = true;
+    this.faceRight = false;
+    this.level = level;
+    this.playerRight = false;
+    
+    this.goblin = game.add.sprite(x, y, 'goblin');
+    game.physics.enable(this.goblin, Phaser.Physics.ARCADE);
+    this.goblin.name = index.toString();
+    this.goblin.body.gravity.y = 1000;
+    this.goblin.enableBody = true;
+    this.goblin.anchor.setTo(.5, .5);
+    this.goblin.body.immovable = true;
+    this.goblin.body.collideWorldBounds = true;
+    this.goblin.body.allowGravity = true;
+    this.goblin.animations.add('walk', [0, 1, 2], 5, true);
+    this.goblin.animations.play('walk');
+};
+
+Goblin.prototype.update = function() {
+    game.physics.arcade.collide(this.goblin, platformLayer);
+    game.physics.arcade.overlap(this.goblin, this.player, this.level.skelHit, null, this);
+    
+    if(this.player.x - this.goblin.x > 0) {
+        this.playerRight = true; 
+    } else {
+        this.playerRight = false; 
+    }
+    
+    if(this.playerRight != this.faceRight) this.flip();
+    
+    this.goblin.body.velocity.x = 50;
+    if(!this.faceRight) this.goblin.body.velocity.x *= -1;
+
+};
+
+Goblin.prototype.flip = function() {
+    this.goblin.scale.x *= -1;
+    this.faceRight = !this.faceRight;
+}
