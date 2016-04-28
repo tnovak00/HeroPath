@@ -196,10 +196,9 @@ level3 = {
             }
         }
         
-        if (cursors.up.isDown && game.time.now > jumptimer) {
+        if (cursors.up.isDown && player.body.onFloor()) {
             player.body.velocity.y = -400
             game.jump.play();
-            jumptimer = game.time.now + 1000;
         }
     },
     
@@ -292,7 +291,10 @@ level3 = {
     
     attackAnimationCooldown: function() {
         attacking = false;
+    },
+    
+    render: function(){
+        //game.debug.text('Grounded: ' + grounded, 32, 32);
     }
     
 }  
-
