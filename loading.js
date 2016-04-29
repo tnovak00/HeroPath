@@ -59,6 +59,8 @@ loading = {
         game.load.spritesheet("bird", "assets/bird.png", 40, 48);
         game.load.spritesheet("goblin", "assets/goblin.png", 56, 64);
         game.load.spritesheet("goblinA", "assets/armoredgoblin.png", 56, 67);
+        game.load.spritesheet("flyingGoblin", "assets/flying_goblin.png", 114, 83);
+        game.load.spritesheet("flyingGoblinProjectile", "assets/flying_goblin_projectile.png", 19, 39);
         game.load.spritesheet("chest", "assets/chest.png", 46, 36);
         
         // MUSIC
