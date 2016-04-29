@@ -33,12 +33,12 @@ var bossMusic;
 var hermesOw;
 var cerberusAttack;
 
-level22 = {
+badend = {
 	create: function(){
         
         //Sounds and music
         
-        dialouge = "";
+        dialous = "";
         game.clouds.stop();
         game.bossMusic = game.add.audio('hermesBattle');
         game.bossMusic.loop = true;

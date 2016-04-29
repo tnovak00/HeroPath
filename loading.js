@@ -51,7 +51,9 @@ loading = {
         game.load.image("back", "assets/back.png");
         game.load.image('battleBG', 'assets/battleBG.jpg');
         game.load.image('dialogue', 'assets/dialogue.png');
+        game.load.image('olympus', 'assets/olympus.jpg');
         game.load.image('dialogue2', 'assets/dialogue2.png');
+        game.load.image('zeus', 'assets/zeus.png');
         game.load.spritesheet("wow", "assets/wow.png", 421, 355);
         game.load.spritesheet("player", "assets/rolloED.png", 171, 243);
         game.load.spritesheet("skeleton", "assets/skeleton.png", 34, 46);
@@ -66,6 +68,7 @@ loading = {
         // MUSIC
         
         game.load.audio("battle", "assets/Sound/battle.mp3");
+        game.load.audio("goodend", "assets/Sound/goodend.mp3");
         game.load.audio("hermesOw", "assets/Sound/hermesOw.wav");
         game.load.audio("cerberusAttack", "assets/Sound/cerberusAttack.mp3");
         game.load.audio("clouds", "assets/Sound/clouds.mp3");

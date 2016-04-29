@@ -24,7 +24,7 @@ gameMenu = {
 	},
 	playTheGame: function(){
         //going to level select state
-		this.game.state.start("LevelSelect");
+		this.game.state.start("GoodEnd");
 	},
     controls: function(){
         //going to control display state
