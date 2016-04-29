@@ -12,7 +12,7 @@ var hermes = false;
 var cerberus = false;
 
 var level1beat = false;
-var level2beat = true;
+var level2beat = false;
 
 gameMenu = {
     create: function(){
@@ -24,7 +24,7 @@ gameMenu = {
 	},
 	playTheGame: function(){
         //going to level select state
-		this.game.state.start("GoodEnd");
+		this.game.state.start("LevelSelect");
 	},
     controls: function(){
         //going to control display state
