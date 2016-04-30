@@ -378,19 +378,23 @@ level3 = {
     
     riddleWrong: function() {
         solvingRiddle = false;
-        
+        dialogue = "";
+        dialogueString.text  = "";
         dialogueString.kill();
         bg.kill();
         OptionOne.kill();
         OptionTwo.kill();
         OptionThree.kill();
         OptionFour.kill();
+        
+        
     },
     
     riddleRight: function() {
         correctRiddles++;
         solvingRiddle = false;
-        
+        dialogue = "";
+        dialogueString.text  = "";
         dialogueString.kill();
         bg.kill();
         OptionOne.kill();

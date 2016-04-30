@@ -70,6 +70,7 @@ level32 = {
         
         dialogueBox = this.game.add.button(510, 220, "dialogue");
         dialogueString = this.game.add.text(525, 230, "", {font: "17px Arial", fill: "#000"});
+        dialogueString.text = dialogue;
         text = game.add.group();
         text.add(dialogueString);
         
@@ -214,7 +215,7 @@ level32 = {
             dialogueBox.kill();
             dialogueBox = this.game.add.button(510, 220, "dialogue", function() {
             this.game.state.start("LevelSelect");}, this);
-            level1beat = true;
+            level3beat = true;
             dialogueString = this.game.add.text(525, 230, "", {font: "17px Arial", fill: "#FFFF00"});
             game.win.play();
             game.battle.stop();
@@ -274,6 +275,7 @@ level32 = {
         dialogueBox.kill();
         dialogueBox = this.game.add.button(510, 220, "dialogue", function() {
         this.game.state.start("LevelSelect");}, this);
+        level3beat = true;
         dialogueString = this.game.add.text(525, 230, "", {font: "17px Arial", fill: "#FFFF00"});
         game.battle.stop();
         dialogue = "You solved my three riddle!\nI will join you!\nClick Here to Continue";
