@@ -6,6 +6,9 @@ var attack;
 var attacking = false;
 var spikes;
 var endDoor;
+var riddleOne;
+var riddleTwo;
+var riddleThree;
 var goblins;
 var skelCol;
 var goblinJumpForce = 600;
@@ -22,9 +25,11 @@ var attackCD = 1;
 var attackAnimationCD = 0.5;
 var attackOnCD = false;
 var wow;
+var solvingRiddle = false;
+var correctRiddles = 0;
 
 // SOUNDS
-var castle;
+var library;
 var jump;
 var ouch;
 var swingsword;
@@ -37,8 +42,8 @@ level3 = {
         game.world.setBounds(0, 0, 3168, 1024);
         
         //Sounds and music
-        game.castle = game.add.audio('castle');
-        game.castle.volume = .15;
+        game.library = game.add.audio('libraryMusic');
+        game.library.volume = .15;
         game.jump = game.add.audio('jump');
         game.ouch = game.add.audio('ouch');
         game.ouch.volume = .30;
@@ -46,7 +51,7 @@ level3 = {
         game.swordhit = game.add.audio('swordhit');
         game.treasure = game.add.audio('treasure');
         
-        game.castle.play();
+        game.library.play();
         
         //Map and collisions
         map = game.add.tilemap('level3', 32, 32);
@@ -57,11 +62,6 @@ level3 = {
         platformLayer = map.createLayer('collision_ground');
         
         map.setCollisionBetween(1,19,true,platformLayer);
-       
-        
-        endDoor = game.add.sprite(2680, 580, 'icon');
-        endDoor.scale.setTo(.5, 1);
-        game.physics.enable(endDoor, Phaser.Physics.ARCADE);
         
         h1 = game.add.sprite(10, 450, 'heart');
         h1.scale.setTo(2, 2);
@@ -88,7 +88,15 @@ level3 = {
         
         //Enemies - Goblins
         enemyGoblins = [];
-        goblinCoords = [[500, 700],[550, 700],[1500, 700],[2100,700]];
+        goblinCoords = 
+            [[2808, 834],
+            [2925, 829],
+            [2045, 816],
+            [1949, 816],
+            [1571, 904],
+            [1323, 858],
+            [1087, 858],
+            [806, 784]];
         
         for(i = 0; i < goblinCoords.length; i++){
             enemyGoblins.push(new Goblin(i, game, player, goblinCoords[i][0], goblinCoords[i][1], this));
@@ -97,30 +105,69 @@ level3 = {
         
         //Enemies - Flying Goblins
         enemyFlyingGoblins = [];
-        flyingGoblinCoords = [[500, 700]];
+        flyingGoblinCoords = [[700, 700],[2769, 661]];
         
         for(i = 0; i < flyingGoblinCoords.length; i++){
             enemyGoblins.push(new FlyingGoblin(i, game, player, flyingGoblinCoords[i][0], flyingGoblinCoords[i][1], this));
         }
         
         //Boss Door
-        endDoor = game.add.sprite(2222, 738, 'icon');
-        endDoor.scale.setTo(.5, 1);
+        //2222, 738
+        endDoor = game.add.sprite(2984, 910, 'icon');
+        endDoor.scale.setTo(1, 1);
         game.physics.enable(endDoor, Phaser.Physics.ARCADE);
+        
+        //Riddle Portals
+        correctRiddles = 0;
+        
+        riddleOne = game.add.sprite(1440, 927, 'icon');
+        riddleOne.scale.setTo(.5, .5);
+        game.physics.enable(riddleOne, Phaser.Physics.ARCADE);
+        
+        riddleTwo = game.add.sprite(2208, 768, 'icon');
+        riddleTwo.scale.setTo(.5, .5);
+        game.physics.enable(riddleTwo, Phaser.Physics.ARCADE);
+        
+        riddleThree = game.add.sprite(2559, 831, 'icon');
+        riddleThree.scale.setTo(.5, .5);
+        game.physics.enable(riddleThree, Phaser.Physics.ARCADE);
+        
+        attackOnCD = false;
+        attacking = false;
         
         cursors = game.input.keyboard.createCursorKeys();
         attack = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
-        
 	},
     
     update: function(){
         
         game.physics.arcade.collide(player, platformLayer);
         game.physics.arcade.collide(goblins, platformLayer);
+        
+        if(solvingRiddle){
+            player.body.velocity.x = 0;
+            
+            for(i = 0; i < enemyFlyingGoblins; i++){
+                enemyFlyingGoblins[i].goblin.body.velocity.x = 0;
+            }
+            
+            for(i = 0; i < enemyGoblins; i++){
+                game.physics.arcade.collide(enemyGoblins[i].goblin, platformLayer);
+                enemyGoblins[i].goblin.body.velocity = 0;
+            }
+            
+            return;
+        }
+        
+        game.camera.follow(player);
+        
         game.physics.arcade.overlap(player, spikes, this.spikeHit, null, this);
         game.physics.arcade.overlap(player, chest1, this.openChest, null, this);
         game.physics.arcade.overlap(player, bats, this.batHit, null, this);
-        game.physics.arcade.overlap(player, endDoor, this.bossFight, null, this)
+        game.physics.arcade.overlap(player, endDoor, this.bossFight, null, this);
+        if(game.physics.arcade.overlap(player, riddleOne)) this.riddle("one");
+        if(game.physics.arcade.overlap(player, riddleTwo)) this.riddle("two");
+        if(game.physics.arcade.overlap(player, riddleThree)) this.riddle("three");
         
         for(i = 0; i < enemyGoblins.length; i++){
             enemyGoblins[i].update();
@@ -131,7 +178,7 @@ level3 = {
         if (health <= 0) {
             health = 100;
             chest1Opened = false;
-            game.castle.stop();
+            game.library.stop();
             this.game.state.start(game.state.current);
         }
         
@@ -262,8 +309,98 @@ level3 = {
         sprite.tint = 0xffffff;
     },
     
+    riddle: function(riddleNumber) {
+        //Dialogue Boxes
+        solvingRiddle = true;
+        style = { font: "25px Verdana", fill: "#FFFF00", align: "center" };
+        text = game.add.text(0, 0, "DEMO OVER", style);
+        bg = game.add.image(0, 0, 'libraryBG')
+        bg.width = game.width;
+        game.camera.follow(bg);
+        
+        //dialogueBox = this.game.add.button(510, 220, "dialogue");
+        dialogueString = this.game.add.text(100, 100, "", {font: "17px Arial", fill: "#FFF"});
+        text = game.add.group();
+        text.add(dialogueString);
+        
+        if(riddleNumber == "one"){
+            dialogue = 
+                "There are 30 white horses on a red hill:\n"+
+                "first they champ, then they stamp, then they stand still. What are they?\n"+
+                "1. Teeth\n"+
+                "2. Soldiers\n"+
+                "3. Chess Pieces\n"+
+                "4. Grains of Rice";
+            dialogueString.text  = dialogue;
+            
+            OptionOne = game.add.button(40, 470, 'OptionOne', this.riddleRight, this);
+            OptionTwo = game.add.button(200, 470, 'OptionTwo', this.riddleWrong, this);
+            OptionThree = game.add.button(360, 470, 'OptionThree', this.riddleWrong, this);
+            OptionFour = game.add.button(520, 470, 'OptionFour', this.riddleWrong, this);
+            
+            riddleOne.kill();
+            
+        } else if(riddleNumber == "two") {
+            dialogue = 
+                "What goes on four legs at dawn, two legs at noon, and three legs in the evening?\n"+
+                "1. A Crow\n"+
+                "2. A Man\n"+
+                "3. A Bear\n"+
+                "4. A Cat";
+            dialogueString.text  = dialogue;
+            
+            OptionOne = game.add.button(40, 470, 'OptionOne', this.riddleWrong, this);
+            OptionTwo = game.add.button(200, 470, 'OptionTwo', this.riddleRight, this);
+            OptionThree = game.add.button(360, 470, 'OptionThree', this.riddleWrong, this);
+            OptionFour = game.add.button(520, 470, 'OptionFour', this.riddleWrong, this);
+            
+            riddleTwo.kill();
+            
+        } else if(riddleNumber == "three") {
+            dialogue = 
+                "What we caught, we threw away; what we didn’t catch, we kept. What did we keep?\n"+
+                "1. Port\n"+
+                "2. Fish\n"+
+                "3. Lice\n"+
+                "4. Boats";
+            dialogueString.text  = dialogue;
+            
+            OptionOne = game.add.button(40, 470, 'OptionOne', this.riddleWrong, this);
+            OptionTwo = game.add.button(200, 470, 'OptionTwo', this.riddleWrong, this);
+            OptionThree = game.add.button(360, 470, 'OptionThree', this.riddleRight, this);
+            OptionFour = game.add.button(520, 470, 'OptionFour', this.riddleWrong, this);
+            
+            riddleThree.kill();
+            
+        }
+        
+    },
+    
+    riddleWrong: function() {
+        solvingRiddle = false;
+        
+        dialogueString.kill();
+        bg.kill();
+        OptionOne.kill();
+        OptionTwo.kill();
+        OptionThree.kill();
+        OptionFour.kill();
+    },
+    
+    riddleRight: function() {
+        correctRiddles++;
+        solvingRiddle = false;
+        
+        dialogueString.kill();
+        bg.kill();
+        OptionOne.kill();
+        OptionTwo.kill();
+        OptionThree.kill();
+        OptionFour.kill();
+    },
+    
     render: function(){
-        //game.debug.text('Grounded: ' + grounded, 32, 32);
+        //game.debug.text('Pointer: ' + (game.camera.x + game.input.mousePointer.x) +', ' + (game.camera.y + game.input.mousePointer.y), 32, 32);
     }
     
 }  

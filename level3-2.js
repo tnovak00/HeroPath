@@ -54,8 +54,8 @@ level32 = {
         
         var style = { font: "25px Verdana", fill: "#FFFF00", align: "center" };
         var text = game.add.text(0, 0, "DEMO OVER", style);
-        var bg = game.add.image(0, 0, 'battleBG')
-        boss = game.add.image(100, 80, 'cerberus');
+        var bg = game.add.image(0, 0, 'athenaBG')
+        boss = game.add.image(0, 10, 'athena');
         boss.scale.setTo(.75, .75);
         game.world.setBounds(-20, -20, game.width+20, game.height+2);
         
@@ -73,14 +73,21 @@ level32 = {
         text = game.add.group();
         text.add(dialogueString);
         
-        bg.width = game.width;
+        bg.scale.setTo(.25, .25);
+        //bg.width = game.width;
+        bg.height = game.height;
 	},
     
     update: function() {
         healthBoard.text = health;
         dialogueString.text  = dialogue;
-        if (turn == false) {
-            this.bossAttack;
+        if(correctRiddles > 2){
+            this.peacefulEnd();
+        }
+        else{
+            if (turn == false) {
+                this.bossAttack;
+            }
         }
     },
     
@@ -100,15 +107,10 @@ level32 = {
                 itemSprites.add(potionNumber);
                 itemSprites.add(potionSprite);
             }
-            if (bone == true) {
-                boneSprite = game.add.button(100, 5, 'bone', this.useBone, this);
-                boneSprite.scale.setTo(.5, .5);
-                itemSprites.add(boneSprite);
-            }
         }
     },
     
-     usePotion: function() {
+    usePotion: function() {
         if (health >= 80) {
             health = 100;
             potions--;
@@ -139,22 +141,18 @@ level32 = {
     handler: function(o) {
         if (o == "0") {
             if (enemyHealth > 80) {
-                this.dialogue("0");
+                //this.dialogue("0");
             } else if (enemyHealth < 80 && enemyHealth > 50) {
-                this.dialogue("3");
+                //this.dialogue("3");
             } else if (enemyHealth < 50 && enemyHealth > 20) {
-                if (bone == true) {
-                    this.dialogue("4a");
-                } else {
-                    this.dialogue("4b");
-                }
+                //
             }
         }
         if (o == "1b") {
-            this.dialogue("1b");
+            //this.dialogue("1b");
         }
         if (o == "2b") {
-            this.dialogue("2b");
+            //this.dialogue("2b");
         }
     },
     
@@ -185,18 +183,6 @@ level32 = {
         game.time.events.add(Phaser.Timer.SECOND * 2.5, this.bossAttack, this);
     },
     
-    useBone: function() {
-       if (enemyHealth >= 50) {
-           this.dialogue("1a");
-           game.menu.play();
-       } else {
-           this.dialogue("2a");
-           this.killItemMenu();
-           bone = false;
-           game.menu.play();
-       }
-    },
-    
     dialogue: function(option) {
         game.menu.play();
         if (option == "1a") {
@@ -204,49 +190,12 @@ level32 = {
             dialogueBox = this.game.add.button(510, 220, "dialogue2", function() { this.handler("1b");}, this);
             dialogueString = this.game.add.text(525, 230, "", {font: "17px Arial", fill: "#000"});
             game.growl.play();
-            dialogue = "*Cerberus growls and \nthrashes his head*";
-        } else if (option == "1b") {
-            dialogueBox.kill();
-            dialogueBox = this.game.add.button(510, 220, "dialogue");
-            dialogueString = this.game.add.text(525, 230, "", {font: "17px Arial", fill: "#000"});
-            dialogue = "He probably needs to be\n weakened more...";
-        } else if (option == "0") {
-            dialogueBox.kill();
-            dialogueBox = this.game.add.button(510, 220, "dialogue");
-            dialogueString = this.game.add.text(525, 230, "", {font: "17px Arial", fill: "#000"});
-            game.growl.play();
-            dialogue = "*Cerberus growls at you*";
+            dialogue = "*Athena eyes you carefully*";
         } else if (option == "2a") {
             dialogueBox.kill();
-            game.woof.play();
-            dialogueBox = this.game.add.button(510, 220, "dialogue2", function() { this.handler("2b");}, this);
-            dialogueString = this.game.add.text(525, 230, "", {font: "17px Arial", fill: "#000"});
-            dialogue = "*Barks happily and takes the \n bone from your hand*";
-        } else if (option == "2b") {
-            dialogueBox.kill();
-            game.win.play();
-            dialogueBox = this.game.add.button(510, 220, "dialogue", function() {
-            this.game.state.start("LevelSelect");}, this);
-            level1beat = true;
-            dialogueString = this.game.add.text(525, 230, "", {font: "17px Arial", fill: "#FFFF00"});
-            game.battle.stop();
-            dialogue = "YOU WIN! Cerberus joins your\n team. Click here.";
-        } else if (option == "3") {
-            dialogueBox.kill();
-            game.growl.play();
             dialogueBox = this.game.add.button(510, 220, "dialogue");
             dialogueString = this.game.add.text(525, 230, "", {font: "17px Arial", fill: "#000"});
-            dialogue = "*Cerberus growls at you softly*";
-        } else if (option == "4a") {
-            dialogueBox.kill();
-            dialogueBox = this.game.add.button(510, 220, "dialogue");
-            dialogueString = this.game.add.text(525, 230, "", {font: "17px Arial", fill: "#000"});
-            dialogue = "*Cerberus is panting heavily and\n sniffing at your pocket*";
-        } else if (option == "4b") {
-            dialogueBox.kill();
-            dialogueBox = this.game.add.button(510, 220, "dialogue");
-            dialogueString = this.game.add.text(525, 230, "", {font: "17px Arial", fill: "#000"});
-            dialogue = "Cerberus is panting heavily and whining*";
+            dialogue = "You have solved my riddles!";
         }
     },
     
@@ -286,16 +235,6 @@ level32 = {
     },
     
     bossAttack: function() {
-        var randomValue = game.rnd.integerInRange(0, 100);
-        if (randomValue > 0 && randomValue < 33 && charging == false) {
-            charging = true;
-            dialogueBox.kill();
-            dialogueBox = this.game.add.button(510, 220, "dialogue");
-            dialogueString = this.game.add.text(525, 230, "", {font: "17px Arial",  fill: "#000"});
-            dialogueString.bringToFront;
-            dialogue = "*Cerberus is glowing red and \n seems to be charging up*"
-            return;
-        }
         if (health > 0) {
             game.dogbite.play();
             game.ouch.play();
@@ -330,4 +269,13 @@ level32 = {
       }
        defending = false;
     },
+    
+    peacefulEnd: function() {
+        dialogueBox.kill();
+        dialogueBox = this.game.add.button(510, 220, "dialogue", function() {
+        this.game.state.start("LevelSelect");}, this);
+        dialogueString = this.game.add.text(525, 230, "", {font: "17px Arial", fill: "#FFFF00"});
+        game.battle.stop();
+        dialogue = "You solved my three riddle!\nI will join you!\nClick Here to Continue";
+    }
 }     
