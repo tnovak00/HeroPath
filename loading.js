@@ -9,6 +9,8 @@ loading = {
         game.load.image("map", "assets/map_bg.png");
         game.load.image("icon", "assets/icon.png");
         game.load.image("menuBG", "assets/cloudy_bg.jpg");
+        game.load.image("libraryBG", "assets/libraryBG.jpg")
+        game.load.image("athenaBG", "assets/athenaBG.jpg")
         game.load.image("controlsBG", "assets/cloudy_controls.jpg");
         game.load.image('heart', 'assets/heart.png');
         
@@ -42,9 +44,14 @@ loading = {
         game.load.image("talkButton", "assets/talkButton.jpg");
         game.load.image("specialButton", "assets/specialButton.jpg");
         game.load.image("defendButton", "assets/defendButton.png");
+        game.load.image("OptionOne", "assets/optionOne.png");
+        game.load.image("OptionTwo", "assets/optionTwo.png");
+        game.load.image("OptionThree", "assets/optionThree.png");
+        game.load.image("OptionFour", "assets/optionFour.png");
         game.load.image("bone", "assets/bone.png");
         game.load.image("cerberus", "assets/cerberus.png");
         game.load.image("hermes", "assets/hermes.png");
+        game.load.image("athena", "assets/athena.png");
         game.load.image("sky", "assets/sky.png");
         game.load.image("itemMenu", "assets/itemPopup.jpg");
         game.load.image("specialMenu", "assets/specialPopup.jpg");
@@ -59,6 +66,8 @@ loading = {
         game.load.spritesheet("bird", "assets/bird.png", 40, 48);
         game.load.spritesheet("goblin", "assets/goblin.png", 56, 64);
         game.load.spritesheet("goblinA", "assets/armoredgoblin.png", 56, 67);
+        game.load.spritesheet("flyingGoblin", "assets/flying_goblin.png", 114, 83);
+        game.load.spritesheet("flyingGoblinProjectile", "assets/flying_goblin_projectile.png", 19, 39);
         game.load.spritesheet("chest", "assets/chest.png", 46, 36);
         
         // MUSIC
@@ -69,6 +78,7 @@ loading = {
         game.load.audio("clouds", "assets/Sound/clouds.mp3");
         game.load.audio("hermesBattle", "assets/Sound/boss.mp3");
         game.load.audio("castle", "assets/Sound/castle.mp3");
+        game.load.audio("libraryMusic", "assets/Sound/library_music.mp3");
         game.load.audio("dogbite", "assets/Sound/dogbite.mp3");
         game.load.audio("growl", "assets/Sound/growl.mp3");
         game.load.audio("growlbark", "assets/Sound/growlbark.mp3");
