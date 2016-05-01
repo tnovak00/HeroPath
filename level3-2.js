@@ -39,6 +39,7 @@ level32 = {
         
         //Sounds and music
         
+        game.library.stop();
         game.battle = game.add.audio('battle');
         game.battle.volume = .15;
         game.battle.play();
