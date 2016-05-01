@@ -9,6 +9,7 @@ game.state.add("Level1-2", level12);
 game.state.add("Level2", level2);
 game.state.add("Level2-2", level22);
 game.state.add("Level3", level3);
+game.state.add("Level3-2", level32);
 game.state.add("Controls", controls);
 game.state.add("GameOver", gameover);
 

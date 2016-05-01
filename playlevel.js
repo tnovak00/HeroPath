@@ -2,6 +2,7 @@ var map;
 var cursors;
 var player;
 var jumptimer = 0;
+var attacktimer = 0;
 var attack;
 var attacking = false;
 var spikes;
@@ -13,7 +14,12 @@ var healthBoard;
 var bats;
 var chest1;
 var chest1Opened = false;
+var chest2;
+var chest2Opened = false;
+var chest3;
+var chest3Opened = false;
 var wow;
+var facing;
 
 // SOUNDS
 var castle;
@@ -86,7 +92,7 @@ playLevel = {
         game.physics.enable(player, Phaser.Physics.ARCADE);
         player.scale.setTo(.15, .15);
         player.body.collideWorldBounds = true;
-        player.body.gravity.y = 700;
+        player.body.gravity.y = 1000;
         player.body.maxVelocity.y = 500;
         player.anchor.setTo(.5, .5);
         game.camera.follow(player);
@@ -177,6 +183,14 @@ playLevel = {
         game.physics.enable(chest1, Phaser.Physics.ARCADE);
         chest1.animations.add('open', [0, 1, 2, 3], 10, true);
         
+        chest2 = game.add.sprite(1100, 825, 'chest');
+        game.physics.enable(chest2, Phaser.Physics.ARCADE);
+        chest2.animations.add('open', [0, 1, 2, 3], 10, true);
+        
+        chest3 = game.add.sprite(1450, 985, 'chest');
+        game.physics.enable(chest3, Phaser.Physics.ARCADE);
+        chest3.animations.add('open', [0, 1, 2, 3], 10, true);
+        
         game.time.events.repeat(Phaser.Timer.SECOND * 1, 100, this.generateBat,this);
 	},
     
@@ -185,7 +199,9 @@ playLevel = {
         game.physics.arcade.collide(player, layer);
         game.physics.arcade.collide(skeletons, layer);
         game.physics.arcade.overlap(player, spikes, this.spikeHit, null, this);
-        game.physics.arcade.overlap(player, chest1, this.openChest, null, this);
+        game.physics.arcade.overlap(player, chest1, this.openChest1, null, this);
+        game.physics.arcade.overlap(player, chest2, this.openChest2, null, this);
+        game.physics.arcade.overlap(player, chest3, this.openChest3, null, this);
         game.physics.arcade.overlap(skeletons, skelCol, this.skeletonPath, null, this);
         game.physics.arcade.overlap(player, skeletons, this.skelHit, null, this);
         game.physics.arcade.overlap(player, bats, this.batHit, null, this);
@@ -209,6 +225,7 @@ playLevel = {
         
         player.body.velocity.x = 0
         //Player movement
+    
         if (attack.isDown && cursors.right.isDown) {
             player.animations.play('attack');
             player.scale.x = .15;
@@ -244,6 +261,14 @@ playLevel = {
             player.body.velocity.y = -400
             game.jump.play();
             jumptimer = game.time.now + 1000;
+        }
+    },
+    
+    attack: function() {
+        if (game.time.now > attacktimer) {
+            player.animations.play('attack');
+            attacking = true;
+            attacktimer = game.time.now + 300;
         }
     },
     
@@ -305,7 +330,7 @@ playLevel = {
         }
     },
     
-    openChest: function() {
+    openChest1: function() {
         if (chest1Opened == false) {
             game.treasure.play();
             chest1.animations.play('open', 7, false);
@@ -313,6 +338,40 @@ playLevel = {
             bone = true;
             
             wow = game.add.sprite(100, 600, 'wow');
+            wow.fixedToCamera = true;
+            wow.cameraOffset.setTo(200, 200)
+            wow.animations.add('spin', [0, 1, 2], 10, true);
+            wow.animations.play('spin');
+            
+            game.time.events.add(Phaser.Timer.SECOND * 4, this.killWow, this);
+        }
+    },
+    
+     openChest2: function() {
+        if (chest2Opened == false) {
+            game.treasure.play();
+            chest2.animations.play('open', 7, false);
+            chest2Opened = true;
+            potions++;
+            
+            wow = game.add.sprite(100, 600, 'potionGet');
+            wow.fixedToCamera = true;
+            wow.cameraOffset.setTo(200, 200)
+            wow.animations.add('spin', [0, 1, 2], 10, true);
+            wow.animations.play('spin');
+            
+            game.time.events.add(Phaser.Timer.SECOND * 4, this.killWow, this);
+        }
+    },
+    
+     openChest3: function() {
+        if (chest3Opened == false) {
+            game.treasure.play();
+            chest3.animations.play('open', 7, false);
+            chest3Opened = true;
+            potions++;
+            
+            wow = game.add.sprite(100, 600, 'potionGet');
             wow.fixedToCamera = true;
             wow.cameraOffset.setTo(200, 200)
             wow.animations.add('spin', [0, 1, 2], 10, true);
