@@ -446,7 +446,7 @@ Goblin.prototype.update = function() {
         this.playerRight = false; 
     }
     
-    if(this.playerRight != this.faceRight) this.flip();
+    if(this.playerRight != this.faceRight && this.goblin.body.onFloor()) this.flip();
     
     this.goblin.body.velocity.x = this.goblinSpeed;
     if(!this.faceRight) this.goblin.body.velocity.x *= -1;

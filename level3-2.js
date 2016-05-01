@@ -82,13 +82,8 @@ level32 = {
     update: function() {
         healthBoard.text = health;
         dialogueString.text  = dialogue;
-        if(correctRiddles > 2){
-            this.peacefulEnd();
-        }
-        else{
-            if (turn == false) {
-                this.bossAttack;
-            }
+        if (turn == false) {
+            this.bossAttack;
         }
     },
     
@@ -141,19 +136,12 @@ level32 = {
     
     handler: function(o) {
         if (o == "0") {
-            if (enemyHealth > 80) {
-                //this.dialogue("0");
-            } else if (enemyHealth < 80 && enemyHealth > 50) {
-                //this.dialogue("3");
-            } else if (enemyHealth < 50 && enemyHealth > 20) {
-                //
+            if(correctRiddles > 2){
+                this.dialogue("2a");
+                this.peacefulEnd();
+            } else {
+               this.dialogue("1a"); 
             }
-        }
-        if (o == "1b") {
-            //this.dialogue("1b");
-        }
-        if (o == "2b") {
-            //this.dialogue("2b");
         }
     },
     
@@ -190,7 +178,7 @@ level32 = {
             dialogueBox.kill();
             dialogueBox = this.game.add.button(510, 220, "dialogue2", function() { this.handler("1b");}, this);
             dialogueString = this.game.add.text(525, 230, "", {font: "17px Arial", fill: "#000"});
-            game.growl.play();
+            //game.growl.play();
             dialogue = "*Athena eyes you carefully*";
         } else if (option == "2a") {
             dialogueBox.kill();
@@ -202,13 +190,13 @@ level32 = {
     
     attackEnemy: function() {
         if (enemyHealth > 0) {
-        game.growlbark.play();
+        //game.growlbark.play();
         game.swordhit.play();
         dialogueBox.kill();
         dialogueBox = this.game.add.button(510, 220, "dialogue");
         dialogueString = this.game.add.text(525, 230, "", {font: "17px Arial", fill: "#000"});
         dialogueString.bringToFront;
-        dialogue = "You swing your sword at \n Cerberus wildly";
+        dialogue = "You swing your sword at \n Athena";
         game.time.events.repeat(Phaser.Timer.SECOND * .2, 3, this.flashingBoss, this);
         enemyHealth -= 15;
         if (enemyHealth <= 0) {
@@ -219,7 +207,7 @@ level32 = {
             dialogueString = this.game.add.text(525, 230, "", {font: "17px Arial", fill: "#FFFF00"});
             game.win.play();
             game.battle.stop();
-            dialogue = "YOU KILLED CERBERUS. Click\n here to end demo.";
+            dialogue = "YOU KILLED ATHENA.\n Click Here to Continue.";
         } else {
         game.time.events.add(Phaser.Timer.SECOND * 1, this.bossAttack, this);
         }
@@ -237,7 +225,7 @@ level32 = {
     
     bossAttack: function() {
         if (health > 0) {
-            game.dogbite.play();
+            //game.dogbite.play();
             game.ouch.play();
             if (defending == true && charging == false) {
                 health -= 5
@@ -255,9 +243,9 @@ level32 = {
             dialogueString.bringToFront;
             if (charging == true) {
               charging = false;
-              dialogue = "*Cerberus blasts a fireball\n in your direction*"  
+              dialogue = "*Athena stabs\n in your direction*"  
             } else {
-              dialogue = "*Cerberus lashes out at you\n with his teeth bared*"
+              dialogue = "*Athena lashes out at you*"
             }
         if (health <= 0) {
             dialogueBox.kill();
@@ -275,6 +263,7 @@ level32 = {
         dialogueBox.kill();
         dialogueBox = this.game.add.button(510, 220, "dialogue", function() {
         this.game.state.start("LevelSelect");}, this);
+        visibleBossHealth = true;
         level3beat = true;
         dialogueString = this.game.add.text(525, 230, "", {font: "17px Arial", fill: "#FFFF00"});
         game.battle.stop();
