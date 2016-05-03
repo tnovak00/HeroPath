@@ -11,9 +11,10 @@ var message = false;
 var hermes = false;
 var cerberus = false;
 
-var level1beat = true;
+var level1beat = false;
 var level2beat = false;
 var level3beat = false;
+var level4beat = false;
 
 gameMenu = {
     create: function(){

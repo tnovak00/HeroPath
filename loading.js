@@ -72,6 +72,13 @@ loading = {
         game.load.spritesheet("flyingGoblinProjectile", "assets/flying_goblin_projectile.png", 19, 39);
         game.load.spritesheet("chest", "assets/chest.png", 46, 36);
         
+        //LEVEL 4
+        game.load.tilemap('level4', 'assets/Maps/level4.json', null, Phaser.Tilemap.TILED_JSON);
+        game.load.image("lavawaterfall", "assets/lavawaterfall.png");
+        game.load.image('volcano2', 'assets/Maps/volcano2.png');
+        game.load.spritesheet("fireballup","assets/fireballup.png",63,52);
+        game.load.audio('volcanic', "assets/Sound/volcano.mp3");
+        
         // MUSIC
         
         game.load.audio("battle", "assets/Sound/battle.mp3");
