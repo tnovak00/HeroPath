@@ -26,7 +26,7 @@ var cerberusAttack = false;
 // SOUNDS
 var battle;
 var ouch;
-var swordhit;
+var swordHit;
 var win;
 var menu;
 var bossMusic;
@@ -38,7 +38,7 @@ level22 = {
         
         //Sounds and music
         
-        dialous = "";
+        dialouge = "";
         game.clouds.stop();
         game.bossMusic = game.add.audio('hermesBattle');
         game.bossMusic.loop = true;
@@ -46,7 +46,7 @@ level22 = {
         
         game.hermesOw = game.add.audio("hermesOw");
         game.cerberusAttack = game.add.audio("cerberusAttack");
-        game.swordhit = game.add.audio('swordhit');
+        game.swordHit = game.add.audio('swordhit');
         game.win = game.add.audio('win');
         game.menu = game.add.audio('menu');
         
@@ -280,7 +280,7 @@ level22 = {
     
     attackEnemy: function() {
         if (enemyHealth > 0) {
-        game.swordhit.play();
+        game.swordHit.play();
         game.hermesOw.play();
         dialogueBox.kill();
         dialogueBox = this.game.add.button(510, 220, "dialogue");
@@ -316,7 +316,7 @@ level22 = {
     
     bossAttack: function() {
         if (health > 0) {
-            game.ouch.play();
+            game.hermesOw.play();
             if (defending == true) {
                 health -= 8
             } else {
