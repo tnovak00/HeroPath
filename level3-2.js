@@ -35,10 +35,10 @@ var menu;
 
 level32 = {
 	create: function(){
-        //game.castle.stop();
         
         //Sounds and music
         
+       // game.library.stop();
         game.battle = game.add.audio('battle');
         game.battle.volume = .15;
         game.battle.play();
@@ -57,7 +57,7 @@ level32 = {
         var bg = game.add.image(0, 0, 'athenaBG')
         boss = game.add.image(0, 10, 'athena');
         boss.scale.setTo(.75, .75);
-        game.world.setBounds(-20, -20, game.width+20, game.height+2);
+      //  game.world.setBounds(-20, -20, game.width+20, game.height+2);
         
         attack = game.add.button(40, 470, 'attackButton', this.attackEnemy, this);
         talk = game.add.button(200, 470, 'talkButton', function() { this.handler("0");}, this);
@@ -75,7 +75,7 @@ level32 = {
         text.add(dialogueString);
         
         bg.scale.setTo(.25, .25);
-        //bg.width = game.width;
+        bg.width = game.width;
         bg.height = game.height;
 	},
     
@@ -190,7 +190,6 @@ level32 = {
     
     attackEnemy: function() {
         if (enemyHealth > 0) {
-        //game.growlbark.play();
         game.swordhit.play();
         dialogueBox.kill();
         dialogueBox = this.game.add.button(510, 220, "dialogue");
@@ -225,7 +224,6 @@ level32 = {
     
     bossAttack: function() {
         if (health > 0) {
-            //game.dogbite.play();
             game.ouch.play();
             if (defending == true && charging == false) {
                 health -= 5

@@ -12,8 +12,15 @@ levelSelect = {
         var icon2 = this.game.add.button(540, 270, "icon", this.playLevel2, this);
         icon2.anchor.setTo(0.5,0.5);
         
-        var icon3 = this.game.add.button(690, 35, "icon", this.playLevel3, this);
-        icon2.anchor.setTo(0.5,0.5);
+        var icon3 = this.game.add.button(730, 70, "icon", this.playLevel3, this);
+        icon3.anchor.setTo(0.5,0.5);
+        
+        var icon4 = this.game.add.button(970, 205, "icon", this.playLevel4, this);
+        icon4.anchor.setTo(0.5,0.5);
+        
+        var icon5 = this.game.add.button(1400, 550, "icon", this.playEnding, this);
+        icon5.anchor.setTo(0.5,0.5);
+        icon5.scale.setTo(2);
         
         //Creating player character
         player = game.add.sprite(70, 400, "player");
@@ -28,6 +35,16 @@ levelSelect = {
         if (level2beat == true) {
             player.position.x = 520;
             player.position.y = 200;
+        }
+        
+        if (level3beat == true) {
+            player.position.x = 700;
+            player.position.y = 0;
+        }
+        
+        if (level4beat == true) {
+            player.position.x = 1120;
+            player.position.y = 300;
         }
         
         player.animations.add('attack', [0, 1, 2, 3, 4, 5, 6, 7], 10, true);
@@ -51,6 +68,20 @@ levelSelect = {
         //going to Level 3: Library
         if (level2beat == true) {
             this.game.state.start("Level3");
+        }
+    },
+    
+    playLevel4: function() {
+        //going to Level 4: Volcano
+        if (level3beat == true) {
+            this.game.state.start("Level4");
+        }
+    },
+    
+    playEnding: function() {
+        //going to ending
+        if (level3beat == true) {
+            this.game.state.start("GoodEnd");
         }
     }
 } 

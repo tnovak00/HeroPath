@@ -59,6 +59,8 @@ loading = {
         game.load.image('battleBG', 'assets/battleBG.jpg');
         game.load.image('dialogue', 'assets/dialogue.png');
         game.load.image('dialogue2', 'assets/dialogue2.png');
+        game.load.image('zeus', 'assets/zeus.png');
+        game.load.image('olympus', 'assets/olympus.jpg');
         game.load.spritesheet("wow", "assets/wow.png", 421, 355);
         game.load.spritesheet("player", "assets/rolloED.png", 171, 243);
         game.load.spritesheet("skeleton", "assets/skeleton.png", 34, 46);
@@ -70,9 +72,17 @@ loading = {
         game.load.spritesheet("flyingGoblinProjectile", "assets/flying_goblin_projectile.png", 19, 39);
         game.load.spritesheet("chest", "assets/chest.png", 46, 36);
         
+        //LEVEL 4
+        game.load.tilemap('level4', 'assets/Maps/level4.json', null, Phaser.Tilemap.TILED_JSON);
+        game.load.image("lavawaterfall", "assets/lavawaterfall.png");
+        game.load.image('volcano2', 'assets/Maps/volcano2.png');
+        game.load.spritesheet("fireballup","assets/fireballup.png",63,52);
+        game.load.audio('volcanic', "assets/Sound/volcano.mp3");
+        
         // MUSIC
         
         game.load.audio("battle", "assets/Sound/battle.mp3");
+        game.load.audio("olympus", "assets/Sound/olympus.mp3");
         game.load.audio("hermesOw", "assets/Sound/hermesOw.wav");
         game.load.audio("cerberusAttack", "assets/Sound/cerberusAttack.mp3");
         game.load.audio("clouds", "assets/Sound/clouds.mp3");

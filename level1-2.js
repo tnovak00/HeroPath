@@ -35,7 +35,7 @@ var menu;
 
 level12 = {
 	create: function(){
-        //game.castle.stop();
+        game.castle.stop();
         
         //Sounds and music
         
