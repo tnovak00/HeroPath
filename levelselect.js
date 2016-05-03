@@ -15,6 +15,10 @@ levelSelect = {
         var icon3 = this.game.add.button(690, 35, "icon", this.playLevel3, this);
         icon2.anchor.setTo(0.5,0.5);
         
+        var icon4 = this.game.add.button(1350, 480, "icon", this.playEnding, this);
+        icon2.anchor.setTo(0.5,0.5);
+        icon4.scale.setTo(2);
+        
         //Creating player character
         player = game.add.sprite(70, 400, "player");
         player.scale.setTo(.5, .5);
@@ -28,6 +32,11 @@ levelSelect = {
         if (level2beat == true) {
             player.position.x = 520;
             player.position.y = 200;
+        }
+        
+        if (level3beat == true) {
+            player.position.x = 1120;
+            player.position.y = 300;
         }
         
         player.animations.add('attack', [0, 1, 2, 3, 4, 5, 6, 7], 10, true);
@@ -51,6 +60,13 @@ levelSelect = {
         //going to Level 3: Library
         if (level2beat == true) {
             this.game.state.start("Level3");
+        }
+    },
+    
+    playEnding: function() {
+        //going to ending
+        if (level3beat == true) {
+            this.game.state.start("GoodEnd");
         }
     }
 } 
